@@ -14,13 +14,15 @@
         <img src="{% static 'blog/images/max.png' %}" alt="Ayushi - The Author of This Blog" />
         <h2>Ayushi's Blog</h2>
     </header>
-    <p>blabla baldscs</p>
+    <p>I'm the master of the world bsalsaalksblabla baldscs</p>
 </section>
 
 <section id="latest-posts">
     <h2>My Latest Posts</h2>
     <ul>
-        {% include 'blog/includes/post.html' %}
+        {% for post in posts %}
+            {% include 'blog/includes/post.html' %}
+        {% endfor %}
     </ul>
 </section>
 
