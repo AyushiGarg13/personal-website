@@ -10,6 +10,15 @@
 {% endblock css_files %}
 
 {% block content %}
+
+{% if comment_form.errors %}
+    <div id="alert">
+        <h2>Saving the comment failed!</h2>
+        <p>Please add valid information!</p>
+        <a href="#comment-form">Fix!</a>
+    </div>
+{% endif %}
+
 <section id="summary">
     <h2>{{post.title}}</h2>
     <div>
@@ -25,9 +34,6 @@
         </div>
     </article>
 </section>
-{% if comment_form.errors %}
-
-{% endif %}
 <main>
     <p>
         {{post.content|linebreaks}}
