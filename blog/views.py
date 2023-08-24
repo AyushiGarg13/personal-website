@@ -57,3 +57,30 @@ class PostDetailView(View):
             "comments": post.comments.all().order_by("-id"),
         }
         return render(request, 'blog/post-details.html', context)
+
+
+class ReadLaterView(View):
+    def get(self, request):
+        stored_posts = request.session.get("stored_posts")
+        context = {}
+        if not stored_posts:
+            context["posts"] = []
+            context["has_posts"] = False
+        else:
+            posts = Post.objects.filter(id__in=stored_posts)
+            context["posts"] = posts
+            context["has_posts"] = True
+
+        return render(request, 'blog/stored-posts.html', context)
+
+    def post(self, request):
+        stored_posts = request.session.get("stored_posts")
+
+        if not stored_posts:
+            stored_posts = []
+
+        post_id = int(request.POST["post_id"])
+        if post_id not in stored_posts:
+            stored_posts.append(post_id)
+
+        return HttpResponseRedirect(reverse("read_later"))
