@@ -14,7 +14,7 @@
 {% if comment_form.errors %}
     <div id="alert">
         <h2>Saving the comment failed!</h2>
-        <p>Please add valid information!</p>
+        <p>Please add valid information.</p>
         <a href="#comment-form">Fix!</a>
     </div>
 {% endif %}
@@ -34,11 +34,24 @@
         </div>
     </article>
 </section>
+
 <main>
     <p>
         {{post.content|linebreaks}}
     </p>
 </main>
+
+<section id="comments">
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <h2>{{comment.user_name}}</h2>
+                <p>{{comment.text|linebreaks}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+
 <section id="comment-form">
     <h2>Your Comment</h2>
     <form action="{% url 'post_details' post.slug %}", method="POST">
